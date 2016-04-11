@@ -15,6 +15,8 @@ namespace Xml2Sql
 	[TestClass]
 	public class UnitTest1
 	{
+		private const string CONN_STRING = @"Data Source =.\sql2012;Initial Catalog = Test; Integrated Security = True";
+
 		[TestMethod]
 		public void TestMethod1()
 		{
@@ -217,7 +219,7 @@ namespace Xml2Sql
 
 		private SqlConnection OpenConnection()
 		{
-			SqlConnection conn = new SqlConnection(@"Data Source=.\sql2012;Initial Catalog=Test;Integrated Security=True");
+			SqlConnection conn = new SqlConnection(CONN_STRING);
 			conn.Open();
 			return conn;
 		}
@@ -225,10 +227,10 @@ namespace Xml2Sql
 		private SqlCommand CreateInsertOrderCommand(SqlTransaction tran)
 		{
 			string sql = @"INSERT INTO Orders (TradingPartnerId, PurchaseOrderNumber, TsetPurposeCode, PurchaseOrderTypeCode, PurchaseOrderDate,
-					ShipCompleteCode, SellersCurrency, Department, Vendor, Division, CustomerOrderNumber)
+				ShipCompleteCode, SellersCurrency, Department, Vendor, Division, CustomerOrderNumber)
 				OUTPUT inserted.OrderId
 				VALUES (@TradingPartnerId, @PurchaseOrderNumber, @TsetPurposeCode, @PurchaseOrderTypeCode, @PurchaseOrderDate,
-					@ShipCompleteCode, @SellersCurrency, @Department, @Vendor, @Division, @CustomerOrderNumber)";
+				@ShipCompleteCode, @SellersCurrency, @Department, @Vendor, @Division, @CustomerOrderNumber)";
 			SqlCommand comm = new SqlCommand(sql, tran.Connection, tran);
 			comm.Parameters.Add("@TradingPartnerId", SqlDbType.VarChar);
 			comm.Parameters.Add("@PurchaseOrderNumber", SqlDbType.VarChar);
