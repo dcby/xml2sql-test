@@ -56,8 +56,17 @@
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Assets\" />
+    <Content Include=".gitignore" />
+    <Content Include="Assets\Orders.xml" />
+    <Content Include="sql\create-test-db.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Orders.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Assets\OrdersFieldsToUse.xlsx" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
