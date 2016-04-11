@@ -166,6 +166,7 @@ namespace Xml2Sql
 			using (SqlCommand insertPaymentTermsCmd = CreateInsertPaymentTermsCommand(tran))
 			using (SqlCommand insertDateCmd = CreateInsertDateCommand(tran))
 			{
+				// iterate over orders
 				foreach (var o in orders)
 				{
 					insertOrderCmd.Parameters["@TradingPartnerId"].Value = o.OrderHeader.TradingPartnerId;
@@ -181,6 +182,7 @@ namespace Xml2Sql
 					insertOrderCmd.Parameters["@CustomerOrderNumber"].Value = o.OrderHeader.CustomerOrderNumber;
 					int orderId = (int)insertOrderCmd.ExecuteScalar();
 
+					// iterate over payment terms (order)
 					foreach (var pt in o.PaymentTerms)
 					{
 						insertPaymentTermsCmd.Parameters["@OrderId"].Value = orderId;
@@ -188,6 +190,7 @@ namespace Xml2Sql
 						insertPaymentTermsCmd.ExecuteNonQuery();
 					}
 
+					// iterate over dates (order)
 					foreach (var d in o.Dates)
 					{
 						insertDateCmd.Parameters["@OrderId"].Value = orderId;
@@ -197,10 +200,12 @@ namespace Xml2Sql
 						insertDateCmd.ExecuteNonQuery();
 					}
 
+					// iterate over contacts (order)
 					foreach (var c in o.Contacts)
 					{
 					}
 
+					// iterate over addresses (order)
 					foreach (var a in o.Addresses)
 					{
 					}
