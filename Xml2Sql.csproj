@@ -66,6 +66,10 @@
   <ItemGroup>
     <Compile Include="Model\CarrierInformation.cs" />
     <Compile Include="Model\ChargesAllowances.cs" />
+    <Compile Include="Model\LineItem.cs" />
+    <Compile Include="Model\OrderLine.cs" />
+    <Compile Include="Model\ProductOrItemDescription.cs" />
+    <Compile Include="Model\ProductID.cs" />
     <Compile Include="Model\Notes.cs" />
     <Compile Include="Model\Summary.cs" />
     <Compile Include="Model\Reference.cs" />

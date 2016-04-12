@@ -67,5 +67,7 @@ namespace Xml2Sql.Model
 		public ICollection<Notes> Notes { get; set; }
 
 		public ICollection<ChargesAllowances> ChargesAllowances { get; set; }
+
+		public ICollection<LineItem> LineItems { get; set; }
 	}
 }

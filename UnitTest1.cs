@@ -16,8 +16,6 @@ namespace Xml2Sql
 	[TestClass]
 	public class UnitTest1
 	{
-		private const string CONN_STRING = @"Data Source =.\sql2012; Initial Catalog = Test; Integrated Security = True";
-
 		[TestMethod]
 		public void TestMethod1()
 		{
@@ -50,7 +48,7 @@ namespace Xml2Sql
 					var xReferences = xHeader.Elements(xns + "Reference");
 					var xNotes = xHeader.Elements(xns + "Notes");
 					var xChargesAllowances = xHeader.Elements(xns + "ChargesAllowances");
-
+					var xLineItems = xOrder.Element(xns + "LineItems")?.Elements(xns + "LineItem") ?? Enumerable.Empty<XElement>();
 					var xSummary = xOrder.Element(xns + "Summary");
 
 					return new Order
@@ -143,6 +141,52 @@ namespace Xml2Sql
 								AllowChrgCode = v.Element(xns + "AllowChrgCode")?.Value,
 								AllowChrgAmt = (s = v.Element(xns + "AllowChrgAmt")?.Value) != null ? Double.Parse(s, CultureInfo.InvariantCulture) : (double?)null,
 								AllowChrgHandlingDescription = v.Element(xns + "AllowChrgHandlingDescription")?.Value
+							}).ToArray(),
+						LineItems = xLineItems
+							.Select(v =>
+							{
+								var xOrderLine = v.Element(xns + "OrderLine");
+								var xProductID = xOrderLine.Element(xns + "ProductID");
+								var xLineItemDates = v.Elements(xns + "Date");
+								var xProductOrItemDescriptions = v.Elements(xns + "ProductOrItemDescription");
+								var xLineItemChargesAllowances = v.Elements(xns + "ChargesAllowances");
+
+								return new LineItem
+								{
+									OrderLine = new OrderLine
+									{
+										LineSequenceNumber = xOrderLine.Element(xns + "LineSequenceNumber")?.Value,
+										BuyerPartNumber = xOrderLine.Element(xns + "BuyerPartNumber")?.Value,
+										VendorPartNumber = xOrderLine.Element(xns + "VendorPartNumber")?.Value,
+										ConsumerPackageCode = xOrderLine.Element(xns + "ConsumerPackageCode")?.Value,
+										GTIN = xOrderLine.Element(xns + "GTIN")?.Value,
+										UPCCaseCode = xOrderLine.Element(xns + "UPCCaseCode")?.Value,
+										ProductID = new ProductID
+										{
+											PartNumberQual = xProductID.Element(xns + "PartNumberQual")?.Value,
+											PartNumber = xProductID.Element(xns + "PartNumber")?.Value
+										},
+										OrderQty = (s = xOrderLine.Element(xns + "OrderQty")?.Value) != null ? Double.Parse(s, CultureInfo.InvariantCulture) : (double?)null,
+										OrderQtyUOM = xOrderLine.Element(xns + "OrderQtyUOM")?.Value,
+										PurchasePrice = (s = xOrderLine.Element(xns + "PurchasePrice")?.Value) != null ? Double.Parse(s, CultureInfo.InvariantCulture) : (double?)null
+									},
+									Dates = xLineItemDates.Select(v1 => new Date
+									{
+										DateTimeQualifier1 = v1.Element(xns + "DateTimeQualifier1")?.Value,
+										Date1 = (s = v1.Element(xns + "Date1")?.Value) != null ? DateTime.Parse(s) : (DateTime?)null
+									}).ToArray(),
+									ProductOrItemDescriptions = xProductOrItemDescriptions.Select(v1 => new ProductOrItemDescription
+									{
+										ProductDescription = v1.Element(xns + "ProductDescription")?.Value
+									}).ToArray(),
+									ChargesAllowances = xLineItemChargesAllowances.Select(v1 => new ChargesAllowances
+									{
+										AllowChrgIndicator = v1.Element(xns + "AllowChrgIndicator")?.Value,
+										AllowChrgCode = v1.Element(xns + "AllowChrgCode")?.Value,
+										AllowChrgAmt = (s = v1.Element(xns + "AllowChrgAmt")?.Value) != null ? Double.Parse(s, CultureInfo.InvariantCulture) : (double?)null,
+										AllowChrgHandlingDescription = v1.Element(xns + "AllowChrgHandlingDescription")?.Value
+									}).ToArray()
+								};
 							}).ToArray(),
 						Summary = xSummary != null
 							? new Summary

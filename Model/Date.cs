@@ -12,10 +12,13 @@ namespace Xml2Sql.Model
 		[Key]
 		public int DateId { get; set; }
 		
-		[Required]
-		public int OrderId { get; set; }
+		public int? OrderId { get; set; }
 
 		public Order Order { get; set; }
+
+		public int? LineItemId { get; set; }
+
+		public LineItem LineItem { get; set; }
 
 		[StringLength(100)]
 		public string DateTimeQualifier1 { get; set; }
