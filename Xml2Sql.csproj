@@ -88,7 +88,6 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="Assets\Orders.xml" />
-    <Content Include="sql\create-test-db.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
