@@ -93,6 +93,7 @@
     </None>
     <None Include="Assets\OrdersFieldsToUse.xlsx" />
     <None Include="packages.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
