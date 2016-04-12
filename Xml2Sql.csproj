@@ -81,7 +81,7 @@
     <Compile Include="Model\Packaging.cs" />
     <Compile Include="Model\PaymentTerms.cs" />
     <Compile Include="Model\Order.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="MainTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

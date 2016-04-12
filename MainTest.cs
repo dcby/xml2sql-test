@@ -1,23 +1,19 @@
-﻿using System;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Xml;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
-using System.Xml.Linq;
-using System.Data.SqlClient;
-using System.Data;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Xml.Linq;
 using Xml2Sql.Model;
 
 namespace Xml2Sql
 {
 	[TestClass]
-	public class UnitTest1
+	public class MainTest
 	{
 		[TestMethod]
-		public void TestMethod1()
+		public void ConvertData()
 		{
 			// scope variables for caching some values
 			string s;
