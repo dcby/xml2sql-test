@@ -3,7 +3,7 @@
 - SQL Server 2012 or newer.
 
 ### Prepare
-- Edit `App.config` file to provide correct connection string.
+- Edit `App.config` file to provide correct connection string. Specify non-existing database for `Initial Catalog` value.
 - Compile project to restore dependency packages and discover tests.
 
 ### Run
